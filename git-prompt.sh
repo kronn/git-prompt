@@ -38,9 +38,9 @@
         fi
         unset cols
 
-	#### prompt character, for root/non-root
-	prompt_char=${prompt_char:-'>'}
-	root_prompt_char=${root_prompt_char:-'>'}
+        #### prompt character, for root/non-root
+        prompt_char=${prompt_char:-'>'}
+        root_prompt_char=${root_prompt_char:-'>'}
 
         #### vcs state colors
                  init_vcs_color=${init_vcs_color:-WHITE}        # initial
@@ -170,9 +170,9 @@ cwd_truncate() {
                         ;;
                 *)
                         # if bash < v3.2  then don't truncate
-			if [[  ${BASH_VERSINFO[0]} -eq 3   &&   ${BASH_VERSINFO[1]} -le 1  || ${BASH_VERSINFO[0]} -lt 3 ]] ;  then
-				return
-			fi
+                        if [[  ${BASH_VERSINFO[0]} -eq 3   &&   ${BASH_VERSINFO[1]} -le 1  || ${BASH_VERSINFO[0]} -lt 3 ]] ;  then
+                                return
+                        fi
                         ;;
         esac
 
@@ -190,21 +190,21 @@ cwd_truncate() {
                 [[ $cwd_middle_max < 0  ]]  &&  cwd_middle_max=0
 
 
-		# trunc middle if over limit
+                # trunc middle if over limit
                 if   [[ ${#path_middle}   -gt   $(( $cwd_middle_max + ${#elipses_marker} + 5 )) ]];   then
 
-			# truncate
-			middle_tail=${path_middle:${#path_middle}-${cwd_middle_max}}
+                        # truncate
+                        middle_tail=${path_middle:${#path_middle}-${cwd_middle_max}}
 
-			# trunc on dir boundary (trunc 1st, probably tuncated dir)
-			exp31='[[ $middle_tail =~ [^/]*/(.*)$ ]]'
-			eval $exp31
-			middle_tail=${BASH_REMATCH[1]}
+                        # trunc on dir boundary (trunc 1st, probably tuncated dir)
+                        exp31='[[ $middle_tail =~ [^/]*/(.*)$ ]]'
+                        eval $exp31
+                        middle_tail=${BASH_REMATCH[1]}
 
-			# use truncated only if we cut at least 4 chars
-			if [[ $((  ${#path_middle} - ${#middle_tail}))  -gt 4  ]];  then
-				cwd=$path_head$elipses_marker$middle_tail$path_last_dir
-			fi
+                        # use truncated only if we cut at least 4 chars
+                        if [[ $((  ${#path_middle} - ${#middle_tail}))  -gt 4  ]];  then
+                                cwd=$path_head$elipses_marker$middle_tail$path_last_dir
+                        fi
                 fi
         fi
         return
@@ -354,7 +354,7 @@ parse_svn_status() {
 
         [[  -z $modified ]]   &&  [[ -z $untracked ]]  &&  clean=clean
         vcs_info=svn:r$rev
- }
+}
 
 parse_hg_status() {
 
@@ -419,13 +419,13 @@ parse_git_status() {
         parse_git_complete
 
         ##########################################################   GIT STATUS
-	file_regex='\([^/]*\/\{0,1\}\).*'
-	added_files=()
-	modified_files=()
-	untracked_files=()
+        file_regex='\([^/]*\/\{0,1\}\).*'
+        added_files=()
+        modified_files=()
+        untracked_files=()
         unset branch status modified added clean init added mixed untracked op detached
 
-	# quoting hell
+        # quoting hell
         eval " $(
                 git status 2>/dev/null |
                     sed -n '
